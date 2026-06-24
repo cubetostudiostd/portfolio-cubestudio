@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cube Studio | Bases sólidas para tu crecimiento</title>
+    <style>
+        /* Variables de color y fuentes */
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #151515;
+            --primary-purple: #8a2be2;
+            --light-purple: #b173f0;
+            --text-light: #f4f4f5;
+            --text-muted: #a1a1aa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Utilidades */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .highlight {
+            color: var(--primary-purple);
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(138, 43, 226, 0.1);
+            color: var(--light-purple);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Header / Hero Section */
+        header {
+            padding: 120px 0 80px 0;
+            text-align: center;
+            background: radial-gradient(circle at 50% -20%, #2b0c47 0%, var(--bg-dark) 60%);
+            border-bottom: 1px solid #222;
+        }
+
+        header h1 {
+            font-size: 4.5rem;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 40px auto;
+        }
+
+        /* Secciones de Clientes */
+        .work-section {
+            padding: 80px 0;
+        }
+
+        .client-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            margin-bottom: 100px;
+        }
+
+        .client-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .client-text {
+            flex: 1;
+        }
+
+        .client-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .client-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .client-media {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Contenedores de Video y Carrusel */
+        .video-wrapper, .carousel-container {
+            position: relative;
+            background-color: var(--bg-card);
+            border: 1px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: border-color 0.4s ease, transform 0.4s ease;
+        }
+
+        .video-wrapper:hover, .carousel-container:hover {
+            border-color: var(--primary-purple);
+            transform: translateY(-5px);
+        }
+
+        .format-vertical {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 9 / 16;
+        }
+
+        .format-horizontal {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-color: #000;
+        }
+
+        /* Estilos específicos del Carrusel */
+        .carousel-track-container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 300%; /* Proporcional al número de imágenes (3 imágenes = 300%) */
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-slide {
+            width: 33.333%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: var(--primary-purple);
+            box-shadow: 0 0 8px var(--primary-purple);
+        }
+
+        .placeholder-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #555;
+            font-weight: bold;
+            pointer-events: none;
+            text-align: center;
+            width: 100%;
+            z-index: 1;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #222;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background-color: var(--bg-dark);
+        }
+
+        /* Responsivo */
+        @media (max-width: 900px) {
+            .client-row, .client-row:nth-child(even) {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+            .client-text h2 {
+                font-size: 2.2rem;
+            }
+            .format-vertical {
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Cube <span class="highlight">Studio</span></h1>
+            <p>No hacemos solo contenido; construimos las bases sólidas que tu empresa necesita para crecer de manera escalable y destacar en el entorno digital.</p>
+        </div>
+    </header>
+
+    <section class="work-section container">
+
+        <div class="client-row">
+            <div class="client-text">
+                <span class="tag">Edición de Reels</span>
+                <h2>Pablo Maza</h2>
+                <p>Desarrollo de contenido vertical dinámico y altamente retentivo. Edición moderna, con cortes precisos y elementos visuales enfocados en captar la atención en los primeros segundos para maximizar el alcance orgánico en plataformas de video corto.</p>
+            </div>
+            <div class="client-media">
+    <div class="video-wrapper format-vertical">
+        <iframe 
+            src="https://www.youtube.com/embed/SZLy-hWaw9k?autoplay=1&mute=1&loop=1&playlist=SZLy-hWaw9k&controls=0&modestbranding=1" 
+            title="Pablo Maza Reel" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+            style="width: 100%; height: 100%; object-fit: cover;">
+        </iframe>
+    </div>
+</div>
+        </div>
+
+        <div class="client-row">
+            <div class="client-text">
+                <span class="tag">YouTube Formato Largo</span>
+                <h2>Marina Alaminos</h2>
+                <p>Edición profesional para mantener a la audiencia conectada. Estructuración narrativa, manejo de ritmo audiovisual y diseño de sonido que garantizan una experiencia de visualización inmersiva, mejorando las métricas de retención del canal.</p>
+            </div>
+            <div class="client-media">
+    <div class="video-wrapper format-horizontal">
+        <iframe 
+            src="https://www.youtube.com/embed/o2KbyhRc_pI?autoplay=1&mute=1&loop=1&playlist=o2KbyhRc_pI&controls=0&modestbranding=1" 
+            title="Marina Alaminos Video" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+            style="width: 100%; height: 100%; object-fit: cover;">
+        </iframe>
+    </div>
+</div>
+        </div>
+
+        <div class="client-row">
+            <div class="client-text">
+                <span class="tag">YouTube Formato Largo</span>
+                <h2>Joel Baisers</h2>
+                <p>Producción de alta calidad para marca personal. Nos enfocamos en un empaquetado visual limpio, corrección de color pulida y transiciones fluidas que elevan el valor percibido de cada pieza de contenido publicada.</p>
+            </div>
+            <div class="client-media">
+                <div class="video-wrapper format-horizontal">
+                    <div class="placeholder-text">Video Horizontal<br>(Joel Baisers)</div>
+                    <video class="scroll-video" muted loop playsinline>
+                        <source src="tu-video-joel.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        <div class="client-row">
+            <div class="client-text">
+                <span class="tag">Artículos Web & SEO</span>
+                <h2>ListaCocina</h2>
+                <p>Gestión de ecosistema digital y posicionamiento orgánico. Estructuración de artículos web, optimización de palabras clave y una identidad visual limpia orientada a convertir lectores casuales en una comunidad fiel y recurrente.</p>
+            </div>
+            <div class="client-media">
+                <div class="carousel-container format-horizontal">
+                    <div class="carousel-track-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide">
+                                <div class="placeholder-text">Imagen 1: Blog Mockup</div>
+                                <img src="tu-imagen-listacocina-1.jpg" alt="ListaCocina Interfaz">
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="placeholder-text">Imagen 2: Artículos y Recetas</div>
+                                <img src="tu-imagen-listacocina-2.jpg" alt="ListaCocina Contenido">
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="placeholder-text">Imagen 3: Métricas SEO</div>
+                                <img src="tu-imagen-listacocina-3.jpg" alt="ListaCocina SEO">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="jumpToSlide(0)"></span>
+                        <span class="dot" onclick="jumpToSlide(1)"></span>
+                        <span class="dot" onclick="jumpToSlide(2)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Cube Studio. Construyendo el futuro digital con bases sólidas.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Lógica de reproducción de videos al hacer scroll
+        document.addEventListener("DOMContentLoaded", function() {
+            const videos = document.querySelectorAll('.scroll-video');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5
+            };
+
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.play().catch(e => console.log("Autoplay pausado por restricciones de navegador."));
+                    } else {
+                        entry.target.pause();
+                    }
+                });
+            }, observerOptions);
+
+            videos.forEach(video => {
+                videoObserver.observe(video);
+            });
+        });
+
+        // 2. Lógica del Carrusel Automático para ListaCocina
+        const track = document.querySelector('.carousel-track');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+        const totalSlides = dots.length;
+        let carouselInterval;
+
+        function updateCarousel(index) {
+            // Desplaza el contenedor basándose en el porcentaje (100 / total de diapositivas)
+            const percentage = index * (100 / totalSlides);
+            track.style.transform = `translateX(-${percentage}%)`;
+            
+            // Actualiza los estados de los puntos indicadores
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            currentIndex = index;
+        }
+
+        function startCarousel() {
+            carouselInterval = setInterval(() => {
+                let nextIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel(nextIndex);
+            }, 3500); // Cambia de imagen cada 3.5 segundos
+        }
+
+        function jumpToSlide(index) {
+            clearInterval(carouselInterval); // Detiene el auto-avance momentáneamente al hacer clic
+            updateCarousel(index);
+            startCarousel(); // Reinicia el contador
+        }
+
+        // Iniciar el carrusel al cargar la página
+        startCarousel();
+    </script>
+
+</body>
+</html>
