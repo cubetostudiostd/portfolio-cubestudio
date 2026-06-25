@@ -246,7 +246,7 @@
             margin: 0 auto;
         }
 
-        /* Sección de Servicios */
+        /* Sección de Servicios (Ajustada para 4 columnas equilibradas) */
         .services-section {
             padding: 100px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -254,16 +254,18 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 30px;
         }
 
         .service-card {
             background-color: var(--bg-card);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 40px 30px;
+            padding: 40px 24px;
             border-radius: 16px;
             transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
         }
 
         .service-card:hover {
@@ -275,18 +277,18 @@
         .service-icon {
             color: var(--light-purple);
             margin-bottom: 20px;
-            display: inline-block;
+            display: inline-flex;
         }
 
         .service-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             margin-bottom: 15px;
             font-weight: 600;
         }
 
         .service-card p {
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         /* Sección de Proceso de Trabajo */
@@ -327,7 +329,7 @@
             font-size: 0.95rem;
         }
 
-        /* Nueva Distribución de Contacto (Formulario + Info) */
+        /* Distribución de Contacto */
         .cta-section {
             padding: 100px 0;
             background: linear-gradient(to top, rgba(138, 43, 226, 0.03), transparent);
@@ -509,7 +511,7 @@
             <div class="client-text">
                 <span class="tag">Edición de Reels</span>
                 <h2>Pablo Maza</h2>
-                <p>Desarrollo de contenido vertical dinámico y altamente retentivo. Edición moderna, con cortes precisos y elementos visuales enfocados en captar la atención en los primeros segundos para maximizar el alcance orgánico en plataformas de video corto.</p>
+                <p>Desarrollo de contenido vertical dinámico y altamente retentivo. Edición moderna, con cortes precisos y elementos visuales enfocados en captar la atención en los primeros segundos para maximizar el alcance orgánico en platforms de video corto.</p>
             </div>
             <div class="client-media">
                 <div class="video-wrapper format-vertical">
@@ -551,30 +553,30 @@
             <div class="client-text">
                 <span class="tag">Artículos Web & SEO</span>
                 <h2>ListaCocina</h2>
-                <p>Gestión de ecosistema digital y posicionamiento orgánico. Estructuración de artículos web, optimización de palabras clave y una identidad visual limpia orientada a convertir lectores casuales en una comunidad fiel y recurrentes.</p>
+                <p>Gestión de ecosistema digital y posicionamiento orgánico. Estructuración de artículos web, optimización de palabras clave y una identidad visual limpia orientada a convertir lectores casuales en una comunidad fiel y recurrente.</p>
             </div>
             <div class="client-media">
-        <div class="carousel-container format-horizontal">
-            <div class="carousel-track-container">
-                <div class="carousel-track">
-                    <div class="carousel-slide" style="background-color: #000;">
-                        <img src="pagina-listacocina.png" alt="ListaCocina Interfaz" style="width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 auto;">
+                <div class="carousel-container format-horizontal">
+                    <div class="carousel-track-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide" style="background-color: #000;">
+                                <img src="pagina-listacocina.png" alt="ListaCocina Interfaz" style="width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 auto;">
+                            </div>
+                            <div class="carousel-slide" style="background-color: #000;">
+                                <img src="foto-listacocina-2.png" alt="ListaCocina Contenido" style="width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 auto;">
+                            </div>
+                            <div class="carousel-slide" style="background-color: #000;">
+                                <img src="foto-listacocina-3.png" alt="ListaCocina SEO" style="width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 auto;">
+                            </div>
+                        </div>
                     </div>
-                    <div class="carousel-slide" style="background-color: #000;">
-                        <img src="foto-listacocina-2.png" alt="ListaCocina Contenido" style="width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 auto;">
-                    </div>
-                    <div class="carousel-slide" style="background-color: #000;">
-                        <img src="foto-listacocina-3.png" alt="ListaCocina SEO" style="width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 auto;">
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="jumpToSlide(0)"></span>
+                        <span class="dot" onclick="jumpToSlide(1)"></span>
+                        <span class="dot" onclick="jumpToSlide(2)"></span>
                     </div>
                 </div>
             </div>
-            <div class="carousel-dots">
-                <span class="dot active" onclick="jumpToSlide(0)"></span>
-                <span class="dot" onclick="jumpToSlide(1)"></span>
-                <span class="dot" onclick="jumpToSlide(2)"></span>
-            </div>
-        </div>
-    </div>
         </div>
 
     </section>
@@ -612,6 +614,15 @@
                 </div>
                 <h3>Estrategia Web & SEO</h3>
                 <p>Estructuración técnica de contenido, optimización de palabras clave y auditoría visual de ecosistemas digitales para asegurar que tus plataformas conviertan visitas en clientes.</p>
+            </div>
+
+            <!-- NUEVO Servicio 4: Meta Ads -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4"></path><circle cx="6" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                </div>
+                <h3>Meta Ads & Tráfico Pago</h3>
+                <p>Diseño y optimización de campañas publicitarias en Facebook e Instagram enfocadas en rendimiento. Segmentación estratégica orientada a captar leads calificados y potenciar las conversiones.</p>
             </div>
         </div>
     </section>
@@ -656,7 +667,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN DE CONTACTO ACTUALIZADA (FORMULARIO DIRECTO AL CORREO) -->
+    <!-- SECCIÓN DE CONTACTO ACTUALIZADA -->
     <section class="cta-section fade-in">
         <div class="container contact-layout">
             
@@ -673,40 +684,38 @@
                 </a>
             </div>
 
-            <!-- Formulario a tu Correo -->
-            <!-- IMPORTANTE: Reemplaza "cubetostudio@gmail.com" por tu email real -->
             <!-- Formulario a tu Correo Corregido -->
-<form action="https://formsubmit.co/cubetostudio@gmail.com" method="POST" class="contact-form">
-    
-    <!-- Configuraciones del envío invisibles (Corregidas para GitHub Pages) -->
-    <input type="hidden" name="_subject" value="¡Nuevo Proyecto para Cube Studio!">
-    <input type="hidden" name="_captcha" value="false">
-    
-    <!-- Esta línea le dice a FormSubmit que redirija de vuelta a tu web tras enviar -->
-    <input type="hidden" name="_next" value="https://cubetostudiostd.github.io/portfolio-cubestudio/gracias.html">
+            <form action="https://formsubmit.co/cubetostudio@gmail.com" method="POST" class="contact-form">
+                
+                <!-- Configuraciones del envío invisibles -->
+                <input type="hidden" name="_subject" value="¡Nuevo Proyecto para Cube Studio!">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <!-- Redirección automática a la página de gracias en GitHub Pages -->
+                <input type="hidden" name="_next" value="https://cubetostudiostd.github.io/portfolio-cubestudio/gracias.html">
 
-    <div class="form-group">
-        <label for="name">Nombre / Empresa</label>
-        <input type="text" id="name" name="name" placeholder="Ej. Juan Pérez" required>
-    </div>
+                <div class="form-group">
+                    <label for="name">Nombre / Empresa</label>
+                    <input type="text" id="name" name="name" placeholder="Ej. Juan Pérez" required>
+                </div>
 
-    <div class="form-group">
-        <label for="email">Correo Electrónico</label>
-        <input type="email" id="email" name="email" placeholder="juan@empresa.com" required>
-    </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="juan@empresa.com" required>
+                </div>
 
-    <div class="form-group">
-        <label for="number">teléfono</label>
-        <input type="tel" id="number" name="number" placeholder="+584141234567" required>
-    </div>
+                <div class="form-group">
+                    <label for="number">Teléfono</label>
+                    <input type="tel" id="number" name="number" placeholder="+584141234567" required>
+                </div>
 
-    <div class="form-group">
-        <label for="message">Cuéntame sobre tu proyecto</label>
-        <textarea id="message" name="message" rows="5" placeholder="¿Qué tipo de videos o estrategia necesitas?" required></textarea>
-    </div>
+                <div class="form-group">
+                    <label for="message">Cuéntame sobre tu proyecto</label>
+                    <textarea id="message" name="message" rows="5" placeholder="¿Qué tipo de videos o estrategia necesitas?" required></textarea>
+                </div>
 
-    <button type="submit" class="submit-btn">Enviar Mensaje</button>
-</form>
+                <button type="submit" class="submit-btn">Enviar Mensaje</button>
+            </form>
 
         </div>
     </section>
