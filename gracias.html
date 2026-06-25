@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Gracias por escribirnos! | Cube Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --primary-purple: #8a2be2;
+            --light-purple: #b173f0;
+            --text-light: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            background: radial-gradient(circle at 50% 50%, rgba(43, 12, 71, 0.3) 0%, var(--bg-dark) 70%);
+            overflow: hidden;
+        }
+
+        .thank-you-container {
+            max-width: 550px;
+            padding: 40px;
+        }
+
+        /* Icono Animado de Check */
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: rgba(138, 43, 226, 0.1);
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px auto;
+            color: var(--light-purple);
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.1);
+            animation: scaleUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Botón Redirigir */
+        .redirect-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--primary-purple);
+            color: #fff;
+            padding: 16px 36px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.15);
+        }
+
+        .redirect-btn:hover {
+            background-color: var(--light-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.25);
+        }
+
+        /* Animación simple de entrada */
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="thank-you-container">
+        <!-- Icono de check premium -->
+        <div class="icon-wrapper">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+
+        <h1>¡Mensaje Recibido!</h1>
+        <p>Tu información ha sido enviada con éxito. Me pondré en contacto contigo lo antes posible para analizar las bases de tu proyecto.</p>
+        
+        <!-- Tu botón de redirección solicitado -->
+        <a href="https://cubetostudiostd.github.io/portfolio-cubestudio/" class="redirect-btn">
+            Redirigir
+        </a>
+    </div>
+
+</body>
+</html>
