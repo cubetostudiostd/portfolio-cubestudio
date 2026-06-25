@@ -675,30 +675,33 @@
 
             <!-- Formulario a tu Correo -->
             <!-- IMPORTANTE: Reemplaza "cubetostudio@gmail.com" por tu email real -->
-            <form action="https://formsubmit.co/cubetostudio@gmail.com" method="POST" class="contact-form">
-                
-                <!-- Configuraciones del envío invisibles -->
-                <input type="hidden" name="_next" value="window.location.href">
-                <input type="hidden" name="_subject" value="¡Nuevo Proyecto para Cube Studio!">
-                <input type="hidden" name="_captcha" value="false">
+            <!-- Formulario a tu Correo Corregido -->
+<form action="https://formsubmit.co/tu-correo@ejemplo.com" method="POST" class="contact-form">
+    
+    <!-- Configuraciones del envío invisibles (Corregidas para GitHub Pages) -->
+    <input type="hidden" name="_subject" value="¡Nuevo Proyecto para Cube Studio!">
+    <input type="hidden" name="_captcha" value="false">
+    
+    <!-- Esta línea le dice a FormSubmit que redirija de vuelta a tu web tras enviar -->
+    <input type="hidden" name="_next" value="https://tu-usuario.github.io/tu-repositorio/">
 
-                <div class="form-group">
-                    <label for="name">Nombre / Empresa</label>
-                    <input type="text" id="name" name="name" placeholder="Ej. Juan Pérez" required>
-                </div>
+    <div class="form-group">
+        <label for="name">Nombre / Empresa</label>
+        <input type="text" id="name" name="name" placeholder="Ej. Juan Pérez" required>
+    </div>
 
-                <div class="form-group">
-                    <label for="email">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" placeholder="juan@empresa.com" required>
-                </div>
+    <div class="form-group">
+        <label for="email">Correo Electrónico</label>
+        <input type="email" id="email" name="email" placeholder="juan@empresa.com" required>
+    </div>
 
-                <div class="form-group">
-                    <label for="message">Cuéntame sobre tu proyecto</label>
-                    <textarea id="message" name="message" rows="5" placeholder="¿Qué tipo de videos o estrategia necesitas?" required></textarea>
-                </div>
+    <div class="form-group">
+        <label for="message">Cuéntame sobre tu proyecto</label>
+        <textarea id="message" name="message" rows="5" placeholder="¿Qué tipo de videos o estrategia necesitas?" required></textarea>
+    </div>
 
-                <button type="submit" class="submit-btn">Enviar Mensaje</button>
-            </form>
+    <button type="submit" class="submit-btn">Enviar Mensaje</button>
+</form>
 
         </div>
     </section>
