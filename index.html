@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cube Studio | Bases sólidas para tu crecimiento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Variables de color y fuentes */
+        /* Variables de color y diseño */
         :root {
             --bg-dark: #0a0a0a;
             --bg-card: #151515;
@@ -13,13 +14,14 @@
             --light-purple: #b173f0;
             --text-light: #f4f4f5;
             --text-muted: #a1a1aa;
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
@@ -27,13 +29,14 @@
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Utilidades */
+        /* Componentes Globales y Utilidades */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
         .highlight {
@@ -44,47 +47,67 @@
             display: inline-block;
             background: rgba(138, 43, 226, 0.1);
             color: var(--light-purple);
-            padding: 6px 14px;
-            border-radius: 20px;
+            padding: 6px 16px;
+            border-radius: 30px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             letter-spacing: 0.5px;
             text-transform: uppercase;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        /* Animaciones por Scroll (Fade-in effect) */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Header / Hero Section */
         header {
-            padding: 120px 0 80px 0;
+            padding: 140px 0 100px 0;
             text-align: center;
-            background: radial-gradient(circle at 50% -20%, #2b0c47 0%, var(--bg-dark) 60%);
-            border-bottom: 1px solid #222;
+            background: radial-gradient(circle at 50% -20%, rgba(43, 12, 71, 0.5) 0%, var(--bg-dark) 60%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         header h1 {
-            font-size: 4.5rem;
+            font-size: clamp(3rem, 5vw, 5rem);
+            font-weight: 700;
             letter-spacing: -1.5px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            line-height: 1.1;
         }
 
         header p {
             font-size: 1.2rem;
             color: var(--text-muted);
             max-width: 650px;
-            margin: 0 auto 40px auto;
+            margin: 0 auto;
+            font-weight: 400;
         }
 
-        /* Secciones de Clientes */
+        /* Secciones de Proyectos (Portafolio) */
         .work-section {
-            padding: 80px 0;
+            padding: 100px 0;
         }
 
         .client-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 60px;
-            margin-bottom: 100px;
+            gap: 80px;
+            margin-bottom: 120px;
+        }
+
+        .client-row:last-child {
+            margin-bottom: 0;
         }
 
         .client-row:nth-child(even) {
@@ -96,9 +119,10 @@
         }
 
         .client-text h2 {
-            font-size: 2.8rem;
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            font-weight: 600;
             margin-bottom: 20px;
-            line-height: 1.1;
+            line-height: 1.2;
         }
 
         .client-text p {
@@ -115,20 +139,21 @@
             width: 100%;
         }
 
-        /* Contenedores de Video y Carrusel */
+        /* Contenedores de Video e Imágenes */
         .video-wrapper, .carousel-container {
             position: relative;
             background-color: var(--bg-card);
-            border: 1px solid #333;
-            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            transition: border-color 0.4s ease, transform 0.4s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transition: var(--transition-smooth);
         }
 
         .video-wrapper:hover, .carousel-container:hover {
-            border-color: var(--primary-purple);
-            transform: translateY(-5px);
+            border-color: rgba(138, 43, 226, 0.5);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(138, 43, 226, 0.15);
         }
 
         .format-vertical {
@@ -142,14 +167,11 @@
             aspect-ratio: 16 / 9;
         }
 
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            background-color: #000;
+        iframe {
+            border-radius: 16px;
         }
 
-        /* Estilos específicos del Carrusel */
+        /* Carrusel Automático (ListaCocina) */
         .carousel-track-container {
             width: 100%;
             height: 100%;
@@ -158,7 +180,7 @@
 
         .carousel-track {
             display: flex;
-            width: 300%; /* Proporcional al número de imágenes (3 imágenes = 300%) */
+            width: 300%;
             height: 100%;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -177,63 +199,204 @@
 
         .carousel-dots {
             position: absolute;
-            bottom: 15px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 8px;
+            gap: 10px;
             z-index: 10;
         }
 
         .dot {
-            width: 8px;
-            height: 8px;
-            background-color: rgba(255, 255, 255, 0.3);
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: var(--transition-smooth);
+        }
+
+        .dot:hover {
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
         .dot.active {
             background-color: var(--primary-purple);
-            box-shadow: 0 0 8px var(--primary-purple);
+            box-shadow: 0 0 12px var(--primary-purple);
+            transform: scale(1.2);
         }
 
-        .placeholder-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #555;
-            font-weight: bold;
-            pointer-events: none;
+        /* Títulos de Sección Uniformes */
+        .section-title {
             text-align: center;
-            width: 100%;
-            z-index: 1;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Sección de Servicios */
+        .services-section {
+            padding: 100px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            border-radius: 16px;
+            transition: var(--transition-smooth);
+        }
+
+        .service-card:hover {
+            border-color: rgba(138, 43, 226, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(138, 43, 226, 0.05);
+        }
+
+        .service-icon {
+            color: var(--light-purple);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Sección de Proceso de Trabajo */
+        .process-section {
+            padding: 100px 0;
+            background: rgba(21, 21, 21, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step-card {
+            position: relative;
+        }
+
+        .step-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: rgba(138, 43, 226, 0.15);
+            line-height: 1;
+            margin-bottom: -10px;
+        }
+
+        .step-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .step-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Sección de Contacto (CTA) */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(to top, rgba(138, 43, 226, 0.05), transparent);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: #25D366; /* Verde oficial de WhatsApp */
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
         }
 
         /* Footer */
         footer {
             padding: 40px 0;
             text-align: center;
-            border-top: 1px solid #222;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             color: var(--text-muted);
             font-size: 0.9rem;
             background-color: var(--bg-dark);
         }
 
-        /* Responsivo */
+        /* Ajustes Responsivos */
         @media (max-width: 900px) {
             .client-row, .client-row:nth-child(even) {
                 flex-direction: column;
                 text-align: center;
-                gap: 40px;
-            }
-            .client-text h2 {
-                font-size: 2.2rem;
+                gap: 50px;
             }
             .format-vertical {
                 max-width: 280px;
+            }
+            .tag {
+                margin: 0 auto 16px auto;
             }
         }
     </style>
@@ -241,7 +404,7 @@
 <body>
 
     <header>
-        <div class="container">
+        <div class="container fade-in">
             <h1>Cube <span class="highlight">Studio</span></h1>
             <p>No hacemos solo contenido; construimos las bases sólidas que tu empresa necesita para crecer de manera escalable y destacar en el entorno digital.</p>
         </div>
@@ -249,7 +412,7 @@
 
     <section class="work-section container">
 
-        <div class="client-row">
+        <div class="client-row fade-in">
             <div class="client-text">
                 <span class="tag">YouTube Formato Largo</span>
                 <h2>Joel Baisers</h2>
@@ -257,90 +420,169 @@
             </div>
             <div class="client-media">
                 <div class="video-wrapper format-horizontal">
-        <iframe 
-            src="https://www.youtube.com/embed/FO7hRH97KtM?autoplay=1&mute=1&loop=1&playlist=FO7hRH97KtM&controls=0&modestbranding=1" 
-            title="Joel Baisers Video" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen
-            style="width: 100%; height: 100%; object-fit: cover;">
-        </iframe>
-    </div>
+                    <iframe 
+                        src="https://www.youtube.com/embed/FO7hRH97KtM?autoplay=1&mute=1&loop=1&playlist=FO7hRH97KtM&controls=0&modestbranding=1" 
+                        title="Joel Baisers Video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    </iframe>
+                </div>
             </div>
         </div>
         
-        <div class="client-row">
+        <div class="client-row fade-in">
             <div class="client-text">
                 <span class="tag">Edición de Reels</span>
                 <h2>Pablo Maza</h2>
                 <p>Desarrollo de contenido vertical dinámico y altamente retentivo. Edición moderna, con cortes precisos y elementos visuales enfocados en captar la atención en los primeros segundos para maximizar el alcance orgánico en plataformas de video corto.</p>
             </div>
             <div class="client-media">
-    <div class="video-wrapper format-vertical">
-        <iframe 
-            src="https://www.youtube.com/embed/SZLy-hWaw9k?autoplay=1&mute=1&loop=1&playlist=SZLy-hWaw9k&controls=0&modestbranding=1" 
-            title="Pablo Maza Reel" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen
-            style="width: 100%; height: 100%; object-fit: cover;">
-        </iframe>
-    </div>
-</div>
+                <div class="video-wrapper format-vertical">
+                    <iframe 
+                        src="https://www.youtube.com/embed/SZLy-hWaw9k?autoplay=1&mute=1&loop=1&playlist=SZLy-hWaw9k&controls=0&modestbranding=1" 
+                        title="Pablo Maza Reel" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    </iframe>
+                </div>
+            </div>
         </div>
 
-        <div class="client-row">
+        <div class="client-row fade-in">
             <div class="client-text">
                 <span class="tag">YouTube Formato Largo</span>
                 <h2>Marina Alaminos</h2>
                 <p>Edición profesional para mantener a la audiencia conectada. Estructuración narrativa, manejo de ritmo audiovisual y diseño de sonido que garantizan una experiencia de visualización inmersiva, mejorando las métricas de retención del canal.</p>
             </div>
             <div class="client-media">
-    <div class="video-wrapper format-horizontal">
-        <iframe 
-            src="https://www.youtube.com/embed/o2KbyhRc_pI?autoplay=1&mute=1&loop=1&playlist=o2KbyhRc_pI&controls=0&modestbranding=1" 
-            title="Marina Alaminos Video" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen
-            style="width: 100%; height: 100%; object-fit: cover;">
-        </iframe>
-    </div>
-</div>
+                <div class="video-wrapper format-horizontal">
+                    <iframe 
+                        src="https://www.youtube.com/embed/o2KbyhRc_pI?autoplay=1&mute=1&loop=1&playlist=o2KbyhRc_pI&controls=0&modestbranding=1" 
+                        title="Marina Alaminos Video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    </iframe>
+                </div>
+            </div>
         </div>
 
-        
-
-        <div class="client-row">
-    <div class="client-text">
-        <span class="tag">Artículos Web & SEO</span>
-        <h2>ListaCocina</h2>
-        <p>Gestión de ecosistema digital y posicionamiento orgánico. Estructuración de artículos web, optimización de palabras clave y una identidad visual limpia orientada a convertir lectores casuales en una comunidad fiel y recurrente.</p>
-    </div>
-    <div class="client-media">
-        <div class="carousel-container format-horizontal">
-            <div class="carousel-track-container">
-                <div class="carousel-track">
-                    <div class="carousel-slide" style="background-color: #000;">
-                        <img src="pagina-listacocina.png" alt="ListaCocina Interfaz" style="width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 auto;">
+        <div class="client-row fade-in">
+            <div class="client-text">
+                <span class="tag">Artículos Web & SEO</span>
+                <h2>ListaCocina</h2>
+                <p>Gestión de ecosistema digital y posicionamiento orgánico. Estructuración de artículos web, optimización de palabras clave y una identidad visual limpia orientada a convertir lectores casuales en una comunidad fiel y recurrente.</p>
+            </div>
+            <div class="client-media">
+                <div class="carousel-container format-horizontal">
+                    <div class="carousel-track-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide" style="background-color: #111;">
+                                <img src="pagina-listacocina.png" alt="ListaCocina Interfaz">
+                            </div>
+                            <div class="carousel-slide" style="background-color: #111;">
+                                <img src="foto-listacocina-2.png" alt="ListaCocina Contenido">
+                            </div>
+                            <div class="carousel-slide" style="background-color: #111;">
+                                <img src="foto-listacocina-3.png" alt="ListaCocina SEO">
+                            </div>
+                        </div>
                     </div>
-                    <div class="carousel-slide" style="background-color: #000;">
-                        <img src="foto-listacocina-2.png" alt="ListaCocina Contenido" style="width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 auto;">
-                    </div>
-                    <div class="carousel-slide" style="background-color: #000;">
-                        <img src="foto-listacocina-3.png" alt="ListaCocina SEO" style="width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 auto;">
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="jumpToSlide(0)"></span>
+                        <span class="dot" onclick="jumpToSlide(1)"></span>
+                        <span class="dot" onclick="jumpToSlide(2)"></span>
                     </div>
                 </div>
             </div>
-            <div class="carousel-dots">
-                <span class="dot active" onclick="jumpToSlide(0)"></span>
-                <span class="dot" onclick="jumpToSlide(1)"></span>
-                <span class="dot" onclick="jumpToSlide(2)"></span>
+        </div>
+
+    </section>
+
+    <section class="services-section container fade-in">
+        <div class="section-title">
+            <h2>Especialidades de la Casa</h2>
+            <p>Soluciones audiovisuales y estratégicas diseñadas para captar la atención, retener audiencias y construir marcas digitales memorables.</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                </div>
+                <h3>Formato Largo & YouTube</h3>
+                <p>Edición narrativa estructurada para mantener el tiempo de reproducción. Corrección de color, diseño de sonido inmersivo y ritmo dinámico adaptado a la identidad de tu canal.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                </div>
+                <h3>Contenido Vertical Retentivo</h3>
+                <p>Shorts, Reels y TikToks optimizados para los primeros 3 segundos. Subtítulos dinámicos, efectos visuales de alto impacto y edición rápida orientada a la viralidad orgánica.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                </div>
+                <h3>Estrategia Web & SEO</h3>
+                <p>Estructuración técnica de contenido, optimización de palabras clave y auditoría visual de ecosistemas digitales para asegurar que tus plataformas conviertan visitas en clientes.</p>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 
+    <section class="process-section">
+        <div class="container fade-in">
+            <div class="section-title">
+                <h2>El Camino al Éxito</h2>
+                <p>Un sistema de trabajo transparente, ágil y profesional diseñado para que delegues la postproducción con total tranquilidad.</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <h3>Estrategia & Concepto</h3>
+                    <p>Analizamos tus objetivos, el tipo de audiencia a la que apuntas y definimos la línea estética, el ritmo y la narrativa ideal para tu marca.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <h3>Edición Profesional</h3>
+                    <p>Transformamos el material bruto mediante cortes precisos, montaje fluido, selección musical estratégica y diseño sonoro avanzado.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <h3>Revisión & Pulido</h3>
+                    <p>Evaluamos los detalles juntos a través de un proceso de feedback directo y limpio, asegurando que el resultado final sea exactamente el esperado.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">04</div>
+                    <h3>Entrega & Crecimiento</h3>
+                    <p>Recibes tus archivos finales en máxima resolución, optimizados para la plataforma elegida y listos para destacar en el feed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section fade-in">
+        <div class="container">
+            <h2>¿Listo para elevar tu contenido?</h2>
+            <p>Hablemos sobre tu próximo proyecto y descubramos cómo podemos trabajar juntos para alcanzar tus objetivos.</p>
+            <a href="https://wa.me/584129681123?text=Hola%20Hern%C3%A1n%2C%20vengo%20de%20tu%20sitio%20web%20y%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto." target="_blank" class="whatsapp-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                </svg>
+                Contáctame por WhatsApp
+            </a>
+        </div>
     </section>
 
     <footer>
@@ -350,28 +592,27 @@
     </footer>
 
     <script>
-        // 1. Lógica de reproducción de videos al hacer scroll
+        // 1. Animaciones de entrada al hacer scroll (Intersection Observer)
         document.addEventListener("DOMContentLoaded", function() {
-            const videos = document.querySelectorAll('.scroll-video');
-            
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.5
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
             };
 
-            const videoObserver = new IntersectionObserver((entries) => {
+            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.play().catch(e => console.log("Autoplay pausado por restricciones de navegador."));
+                    if (!entry.isIntersecting) {
+                        return;
                     } else {
-                        entry.target.pause();
+                        entry.target.classList.add('visible');
+                        appearOnScroll.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
+            }, appearOptions);
 
-            videos.forEach(video => {
-                videoObserver.observe(video);
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
             });
         });
 
@@ -383,11 +624,9 @@
         let carouselInterval;
 
         function updateCarousel(index) {
-            // Desplaza el contenedor basándose en el porcentaje (100 / total de diapositivas)
             const percentage = index * (100 / totalSlides);
             track.style.transform = `translateX(-${percentage}%)`;
             
-            // Actualiza los estados de los puntos indicadores
             dots.forEach(dot => dot.classList.remove('active'));
             dots[index].classList.add('active');
             currentIndex = index;
@@ -397,16 +636,15 @@
             carouselInterval = setInterval(() => {
                 let nextIndex = (currentIndex + 1) % totalSlides;
                 updateCarousel(nextIndex);
-            }, 3500); // Cambia de imagen cada 3.5 segundos
+            }, 3500); // Rotación cada 3.5 segundos
         }
 
         function jumpToSlide(index) {
-            clearInterval(carouselInterval); // Detiene el auto-avance momentáneamente al hacer clic
+            clearInterval(carouselInterval);
             updateCarousel(index);
-            startCarousel(); // Reinicia el contador
+            startCarousel();
         }
 
-        // Iniciar el carrusel al cargar la página
         startCarousel();
     </script>
 
