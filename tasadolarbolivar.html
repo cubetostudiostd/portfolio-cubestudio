@@ -183,22 +183,26 @@
         // 2. OBTENCIÓN Y PROCESAMIENTO DE DATOS
         // =====================================================================
         async function fetchData() {
-            try {
-                 Fetch simple (si estás probando sin URL real, usa el mock de abajo)
-                 const response = await fetch(SHEET_CSV_URL);
-                 const csvText = await response.text();
-                
-                // --- MOCK DATA PARA DEMOSTRACIÓN (Elimina esto y descomenta lo de arriba en producción) ---
-                /* const csvText = `Fecha,BCV,Euro,Binance,AirTM,Promedio\n10/05/2026 09:00,36.50,39.80,38.10,38.50,37.90\n11/05/2026 09:00,36.52,39.85,38.25,38.60,38.10\n12/05/2026 13:00,36.55,39.90,38.40,38.70,38.30`;*/
-                // -----------------------------------------------------------------------------------------
-
-                parseAndRenderCSV(csvText);
-            } catch (error) {
-                console.error("Error al cargar el Google Sheet:", error);
-                document.getElementById('display-date').innerText = "Error de conexión";
-                document.getElementById('display-date-mobile').innerText = "Error de conexión";
-            }
+    try {
+        // Hace la petición a tu variable SHEET_CSV_URL
+        const response = await fetch(SHEET_CSV_URL);
+        
+        // Verifica si Google Sheets respondió correctamente
+        if (!response.ok) {
+            throw new Error(`Error de red: ${response.status}`);
         }
+        
+        const csvText = await response.text();
+        
+        // Enviamos el texto a procesar
+        parseAndRenderCSV(csvText);
+        
+    } catch (error) {
+        console.error("Error al cargar el Google Sheet:", error);
+        document.getElementById('display-date').innerText = "Error de conexión";
+        document.getElementById('display-date-mobile').innerText = "Error de conexión";
+    }
+}
 
         function parseAndRenderCSV(csv) {
             // Dividir por saltos de línea (manejando \r\n o \n)
