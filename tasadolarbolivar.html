@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoreo de Tasas | Dólar - Bolívar</title>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome (Iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        night: '#0B1120',      // Fondo principal oscuro/azul nocturno
+                        cardbg: '#1E293B',     // Fondo de tarjetas
+                        cobalt: '#1D4ED8',     // Azul cobalto
+                        accent: '#F59E0B',     // Acento amarillo/naranja
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos base adicionales y scrollbar personalizado */
+        body { background-color: #0B1120; color: #F8FAFC; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0B1120; }
+        ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1D4ED8; }
+        
+        /* Efecto de selección visual para las tarjetas */
+        .card-active { border-color: #F59E0B !important; box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans">
+
+    <!-- Header -->
+    <header class="bg-cardbg border-b border-slate-700 py-6 px-4 shadow-lg">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-cobalt p-3 rounded-lg text-white">
+                    <i class="fa-solid fa-chart-pie text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-wide">Mercado<span class="text-accent">Cambiario</span></h1>
+                    <p class="text-sm text-slate-400">Monitor de Divisas USD/VES</p>
+                </div>
+            </div>
+            <div class="text-right hidden sm:block">
+                <p class="text-sm text-slate-400">Última actualización:</p>
+                <p id="display-date" class="font-semibold text-accent animate-pulse">Cargando datos...</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-6xl mx-auto w-full px-4 py-8 space-y-12">
+        
+        <!-- Fecha en móvil -->
+        <div class="sm:hidden text-center bg-cardbg rounded-lg py-2 border border-slate-700">
+            <p class="text-xs text-slate-400">Última actualización:</p>
+            <p id="display-date-mobile" class="font-semibold text-accent text-sm">Cargando...</p>
+        </div>
+
+        <!-- Sección de Tarjetas (Hero) -->
+        <section>
+            <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-bolt text-accent"></i> Tasas del Día
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" id="cards-container">
+                <!-- Las tarjetas se generan vía JS -->
+            </div>
+        </section>
+
+        <!-- Calculadora de Divisas -->
+        <section class="bg-cardbg rounded-2xl p-6 md:p-8 border border-slate-700 shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cobalt to-accent"></div>
+            
+            <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-calculator text-cobalt"></i> Calculadora Integrada
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                <!-- Selector -->
+                <div class="flex flex-col gap-2">
+                    <label for="rate-select" class="text-sm text-slate-400 font-medium">Tasa de referencia:</label>
+                    <select id="rate-select" class="bg-night border border-slate-600 rounded-lg p-3 text-white focus:outline-none focus:border-accent transition-colors appearance-none cursor-pointer">
+                        <option value="BCV">Dólar BCV</option>
+                        <option value="Euro">Dólar Euro</option>
+                        <option value="Binance">Binance</option>
+                        <option value="AirTM">AirTM</option>
+                        <option value="Promedio">Dólar Promedio</option>
+                    </select>
+                </div>
+
+                <!-- Input USD -->
+                <div class="flex flex-col gap-2 relative">
+                    <label for="input-usd" class="text-sm text-slate-400 font-medium">Cantidad en Dólares ($):</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-3 text-slate-400"><i class="fa-solid fa-dollar-sign"></i></span>
+                        <input type="number" id="input-usd" placeholder="0.00" class="w-full bg-night border border-slate-600 rounded-lg p-3 pl-8 text-white focus:outline-none focus:border-cobalt transition-colors">
+                    </div>
+                </div>
+
+                <!-- Input VES -->
+                <div class="flex flex-col gap-2 relative">
+                    <label for="input-ves" class="text-sm text-slate-400 font-medium">Equivalente en Bolívares (Bs.):</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-3 text-slate-400">Bs.</span>
+                        <input type="number" id="input-ves" placeholder="0.00" class="w-full bg-night border border-slate-600 rounded-lg p-3 pl-10 text-white focus:outline-none focus:border-cobalt transition-colors">
+                    </div>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500 mt-4"><i class="fa-solid fa-circle-info mr-1"></i> Puedes modificar cualquiera de los dos campos y el otro se calculará automáticamente en tiempo real.</p>
+        </section>
+
+        <!-- Tabla de Registro Histórico -->
+        <section>
+            <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-clock-rotate-left text-slate-400"></i> Historial de Registros
+            </h2>
+            <div class="bg-cardbg rounded-xl border border-slate-700 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-800 text-slate-300 text-sm uppercase tracking-wider">
+                                <th class="p-4 font-medium border-b border-slate-700">Fecha</th>
+                                <th class="p-4 font-medium border-b border-slate-700 text-right">BCV</th>
+                                <th class="p-4 font-medium border-b border-slate-700 text-right">Euro</th>
+                                <th class="p-4 font-medium border-b border-slate-700 text-right">Binance</th>
+                                <th class="p-4 font-medium border-b border-slate-700 text-right">AirTM</th>
+                                <th class="p-4 font-medium border-b border-slate-700 text-right">Promedio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body" class="text-sm divide-y divide-slate-700">
+                            <!-- Filas generadas por JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer / Disclaimer -->
+    <footer class="bg-night border-t border-slate-800 mt-12 py-8 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <p class="text-slate-400 text-xs leading-relaxed">
+                Nota informativa: Este espacio solo comparte estadísticas y promedios del entorno financiero actual. No se determina ningún valor de mercado ni respondemos por cómo se decida emplear estos indicadores. La ejecución de cualquier transacción queda bajo tu propio criterio.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Lógica de la Aplicación -->
+    <script>
+        // =====================================================================
+        // 1. CONFIGURACIÓN
+        // =====================================================================
+        // Pega aquí el enlace de tu Google Sheet publicado como CSV
+        const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQz2jXidBozpBN24HloOV86Sc8s5q9YAIcqbEENnQfZiiykHtTKQUrE7qSiWULqTSTQDGPjPw36Ztvb/pub?output=csv'; 
+        
+        // Configuración visual de las tarjetas
+        const indicatorsConfig = {
+            BCV: { icon: 'fa-landmark', color: 'text-blue-400' },
+            Euro: { icon: 'fa-euro-sign', color: 'text-purple-400' },
+            Binance: { icon: 'fa-bitcoin', color: 'text-yellow-400' },
+            AirTM: { icon: 'fa-cloud', color: 'text-blue-300' },
+            Promedio: { icon: 'fa-chart-line', color: 'text-accent' }
+        };
+
+        // Estado global
+        let latestRates = {};
+
+        // =====================================================================
+        // 2. OBTENCIÓN Y PROCESAMIENTO DE DATOS
+        // =====================================================================
+        async function fetchData() {
+            try {
+                 Fetch simple (si estás probando sin URL real, usa el mock de abajo)
+                 const response = await fetch(SHEET_CSV_URL);
+                 const csvText = await response.text();
+                
+                // --- MOCK DATA PARA DEMOSTRACIÓN (Elimina esto y descomenta lo de arriba en producción) ---
+                /* const csvText = `Fecha,BCV,Euro,Binance,AirTM,Promedio\n10/05/2026 09:00,36.50,39.80,38.10,38.50,37.90\n11/05/2026 09:00,36.52,39.85,38.25,38.60,38.10\n12/05/2026 13:00,36.55,39.90,38.40,38.70,38.30`;*/
+                // -----------------------------------------------------------------------------------------
+
+                parseAndRenderCSV(csvText);
+            } catch (error) {
+                console.error("Error al cargar el Google Sheet:", error);
+                document.getElementById('display-date').innerText = "Error de conexión";
+                document.getElementById('display-date-mobile').innerText = "Error de conexión";
+            }
+        }
+
+        function parseAndRenderCSV(csv) {
+            // Dividir por saltos de línea (manejando \r\n o \n)
+            const rows = csv.trim().split(/\r?\n/);
+            if (rows.length < 2) return;
+
+            const headers = rows[0].split(',');
+            const dataRows = rows.slice(1).map(row => row.split(','));
+            
+            // Revertir para tener la fecha más reciente primero (asumiendo que se agregan al final del sheet)
+            dataRows.reverse(); 
+
+            // Datos más recientes (Fila 0 tras revertir)
+            const latest = dataRows[0];
+            const date = latest[0];
+            
+            // Mapear los valores a nuestro objeto global
+            headers.forEach((header, index) => {
+                const key = header.trim();
+                if (indicatorsConfig[key]) {
+                    latestRates[key] = parseFloat(latest[index]);
+                }
+            });
+
+            // Renderizar interfaz
+            renderHeader(date);
+            renderCards();
+            renderTable(dataRows, headers);
+        }
+
+        // =====================================================================
+        // 3. RENDERIZADO DEL DOM
+        // =====================================================================
+        function renderHeader(dateStr) {
+            document.getElementById('display-date').innerText = dateStr;
+            document.getElementById('display-date-mobile').innerText = dateStr;
+            // Remover animación de pulso
+            document.getElementById('display-date').classList.remove('animate-pulse');
+        }
+
+        function renderCards() {
+            const container = document.getElementById('cards-container');
+            container.innerHTML = ''; // Limpiar
+
+            Object.keys(indicatorsConfig).forEach(key => {
+                const rate = latestRates[key].toFixed(2);
+                const conf = indicatorsConfig[key];
+                
+                const card = document.createElement('div');
+                card.className = `bg-cardbg rounded-xl p-5 border border-slate-700 shadow-md cursor-pointer transition-all hover:border-accent hover:-translate-y-1 rate-card group`;
+                card.dataset.rateKey = key;
+                
+                card.innerHTML = `
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="bg-slate-800 p-2 rounded-md ${conf.color} group-hover:bg-slate-700 transition-colors">
+                            <i class="fa-brands ${conf.icon} text-lg"></i>
+                            ${!conf.icon.includes('brands') ? `<i class="fa-solid ${conf.icon} text-lg"></i>`.replace('fa-brands', '') : ''}
+                        </div>
+                        <h3 class="text-slate-300 font-medium text-sm">${key}</h3>
+                    </div>
+                    <div class="flex items-end gap-1">
+                        <span class="text-2xl font-bold text-white">${rate}</span>
+                        <span class="text-sm text-slate-400 mb-1">Bs.</span>
+                    </div>
+                `;
+                
+                // Evento de clic en tarjeta
+                card.addEventListener('click', () => selectCard(key, card));
+                container.appendChild(card);
+            });
+
+            // Seleccionar por defecto el BCV
+            const firstCard = container.querySelector('[data-rate-key="BCV"]');
+            if (firstCard) selectCard('BCV', firstCard);
+        }
+
+        function renderTable(dataRows, headers) {
+            const tbody = document.getElementById('history-table-body');
+            tbody.innerHTML = '';
+
+            dataRows.forEach((row, rowIndex) => {
+                const tr = document.createElement('tr');
+                tr.className = rowIndex % 2 === 0 ? 'bg-cardbg' : 'bg-[#1a2333]'; // Filas alternas
+                
+                let html = `<td class="p-4 text-slate-300 whitespace-nowrap">${row[0]}</td>`;
+                
+                // Se asume el orden: Fecha, BCV, Euro, Binance, AirTM, Promedio
+                for (let i = 1; i <= 5; i++) {
+                    const val = parseFloat(row[i]).toFixed(2);
+                    html += `<td class="p-4 text-right font-medium text-slate-200">${val}</td>`;
+                }
+                
+                tr.innerHTML = html;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // =====================================================================
+        // 4. LÓGICA DE LA CALCULADORA
+        // =====================================================================
+        const selectEl = document.getElementById('rate-select');
+        const usdInput = document.getElementById('input-usd');
+        const vesInput = document.getElementById('input-ves');
+
+        // Seleccionar tasa desde tarjeta
+        function selectCard(key, cardElement) {
+            // Actualizar Selector
+            selectEl.value = key;
+            
+            // Actualizar estilos de las tarjetas
+            document.querySelectorAll('.rate-card').forEach(c => c.classList.remove('card-active', 'border-accent'));
+            if(cardElement) {
+                cardElement.classList.add('card-active');
+            } else {
+                const targetCard = document.querySelector(`.rate-card[data-rate-key="${key}"]`);
+                if(targetCard) targetCard.classList.add('card-active');
+            }
+
+            // Recalcular
+            calcFromUsd();
+        }
+
+        // Cálculos matemáticos
+        function calcFromUsd() {
+            const usdVal = parseFloat(usdInput.value);
+            const rate = latestRates[selectEl.value];
+            
+            if (!isNaN(usdVal) && rate) {
+                vesInput.value = (usdVal * rate).toFixed(2);
+            } else if (usdInput.value === '') {
+                vesInput.value = '';
+            }
+        }
+
+        function calcFromVes() {
+            const vesVal = parseFloat(vesInput.value);
+            const rate = latestRates[selectEl.value];
+            
+            if (!isNaN(vesVal) && rate) {
+                usdInput.value = (vesVal / rate).toFixed(2);
+            } else if (vesInput.value === '') {
+                usdInput.value = '';
+            }
+        }
+
+        // Event Listeners de la calculadora
+        selectEl.addEventListener('change', (e) => selectCard(e.target.value, null));
+        usdInput.addEventListener('input', calcFromUsd);
+        vesInput.addEventListener('input', calcFromVes);
+
+        // Iniciar
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+</body>
+</html>
