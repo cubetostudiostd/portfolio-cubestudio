@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joel Baisers | Caso de Estudio - Cube Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #151515;
+            --primary-purple: #8a2be2;
+            --light-purple: #b173f0;
+            --text-light: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .highlight { color: var(--primary-purple); }
+
+        /* Botón Volver */
+        .back-nav {
+            padding: 40px 0;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .back-link:hover {
+            color: var(--text-light);
+            transform: translateX(-4px);
+        }
+
+        /* Cabecera del Caso de Estudio */
+        .case-header {
+            text-align: center;
+            padding: 40px 0 60px 0;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(138, 43, 226, 0.1);
+            color: var(--light-purple);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .case-header h1 {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .case-header p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Video / Contenido Principal */
+        .case-hero-media {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 60px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            aspect-ratio: 16 / 9;
+        }
+
+        .case-hero-media iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Secciones de Contenido */
+        .case-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .content-box {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 16px;
+        }
+
+        .content-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .content-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .case-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Navegación para regresar -->
+        <div class="back-nav">
+            <a href="index.html" class="back-link">&larr; Volver al inicio</a>
+        </div>
+
+        <!-- Cabecera -->
+        <header class="case-header">
+            <span class="tag">YouTube Formato Largo</span>
+            <h1>Joel <span class="highlight">Baisers</span></h1>
+            <p>Estrategia integral de postproducción y optimización visual para potenciar la retención de audiencia en YouTube.</p>
+        </header>
+
+        <!-- Video Destacado -->
+        <div class="case-hero-media">
+            <iframe src="https://www.youtube.com/embed/FO7hRH97KtM" title="Joel Baisers Video Completo" allowfullscreen></iframe>
+        </div>
+
+        <!-- Desglose del Proyecto -->
+        <section class="case-content">
+            <div class="content-box">
+                <h3>El Reto</h3>
+                <p>Mantener la atención de los espectadores durante videos de formato largo complejos, asegurando que la calidad visual y el ritmo narrativo reflejaran la autoridad de la marca personal del creador.</p>
+            </div>
+            <div class="content-box">
+                <h3>Nuestra Solución</h3>
+                <p>Implementamos un sistema de corrección de color pulido, diseño de transiciones fluidas y un empaquetado gráfico limpio que dinamiza la experiencia de visualización sin distraer del mensaje central.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Cube Studio. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
