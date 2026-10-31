@@ -16,177 +16,81 @@
             --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
         .highlight { color: var(--primary-purple); }
 
-        /* Botón Volver */
-        .back-nav {
-            padding: 40px 0;
-        }
+        .back-nav { padding: 40px 0; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-weight: 500; transition: var(--transition-smooth); }
+        .back-link:hover { color: var(--text-light); transform: translateX(-4px); }
 
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition-smooth);
-        }
+        .case-header { text-align: center; padding: 20px 0 50px 0; }
+        .tag { display: inline-block; background: rgba(138, 43, 226, 0.1); color: var(--light-purple); padding: 6px 16px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; text-transform: uppercase; border: 1px solid rgba(138, 43, 226, 0.2); }
+        .case-header h1 { font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 700; margin-bottom: 20px; }
+        .case-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; }
 
-        .back-link:hover {
-            color: var(--text-light);
-            transform: translateX(-4px);
-        }
+        .case-hero-media { background-color: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; overflow: hidden; margin-bottom: 60px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); aspect-ratio: 16 / 9; }
+        .case-hero-media iframe { width: 100%; height: 100%; border: none; }
 
-        /* Cabecera del Caso de Estudio */
-        .case-header {
-            text-align: center;
-            padding: 40px 0 60px 0;
-        }
+        .case-content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+        .content-box { background-color: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 16px; }
+        .content-box h3 { font-size: 1.3rem; margin-bottom: 15px; font-weight: 600; }
+        .content-box p { color: var(--text-muted); font-size: 0.95rem; }
 
-        .tag {
-            display: inline-block;
-            background: rgba(138, 43, 226, 0.1);
-            color: var(--light-purple);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            border: 1px solid rgba(138, 43, 226, 0.2);
-        }
+        /* Puntos Positivos */
+        .highlights-section { background-color: var(--bg-card); border: 1px solid rgba(138, 43, 226, 0.2); padding: 50px; border-radius: 16px; margin-bottom: 80px; }
+        .highlights-section h2 { font-size: 2rem; margin-bottom: 30px; text-align: center; }
+        .highlights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .highlight-item h4 { font-size: 1.1rem; color: var(--light-purple); margin-bottom: 8px; }
+        .highlight-item p { color: var(--text-muted); font-size: 0.95rem; }
 
-        .case-header h1 {
-            font-size: clamp(2.5rem, 4vw, 4rem);
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 20px;
-        }
-
-        .case-header p {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Video / Contenido Principal */
-        .case-hero-media {
-            background-color: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 60px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            aspect-ratio: 16 / 9;
-        }
-
-        .case-hero-media iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Secciones de Contenido */
-        .case-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 80px;
-        }
-
-        .content-box {
-            background-color: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 40px;
-            border-radius: 16px;
-        }
-
-        .content-box h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .content-box p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        footer {
-            padding: 40px 0;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .case-content {
-                grid-template-columns: 1fr;
-            }
-        }
+        footer { padding: 40px 0; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); color: var(--text-muted); font-size: 0.9rem; }
+        @media (max-width: 768px) { .case-content { grid-template-columns: 1fr; } .highlights-section { padding: 30px; } }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <!-- Navegación para regresar -->
-        <div class="back-nav">
-            <a href="index.html" class="back-link">&larr; Volver al inicio</a>
-        </div>
-
-        <!-- Cabecera -->
+        <div class="back-nav"><a href="index.html" class="back-link">&larr; Volver al inicio</a></div>
         <header class="case-header">
             <span class="tag">YouTube Formato Largo</span>
             <h1>Joel <span class="highlight">Baisers</span></h1>
-            <p>Estrategia integral de postproducción y optimización visual para potenciar la retención de audiencia en YouTube.</p>
+            <p>Producción de alta calidad y empaquetado visual para consolidar una marca personal influyente y de autoridad.</p>
         </header>
 
-        <!-- Video Destacado -->
         <div class="case-hero-media">
             <iframe src="https://www.youtube.com/embed/FO7hRH97KtM" title="Joel Baisers Video Completo" allowfullscreen></iframe>
         </div>
 
-        <!-- Desglose del Proyecto -->
         <section class="case-content">
             <div class="content-box">
                 <h3>El Reto</h3>
-                <p>Mantener la atención de los espectadores durante videos de formato largo complejos, asegurando que la calidad visual y el ritmo narrativo reflejaran la autoridad de la marca personal del creador.</p>
+                <p>Elevar el estándar visual de las producciones para que reflejaran profesionalismo y categoría, manteniendo enganchada a una audiencia exigente en videos de larga duración.</p>
             </div>
             <div class="content-box">
                 <h3>Nuestra Solución</h3>
-                <p>Implementamos un sistema de corrección de color pulido, diseño de transiciones fluidas y un empaquetado gráfico limpio que dinamiza la experiencia de visualización sin distraer del mensaje central.</p>
+                <p>Aplicamos un sistema de corrección de color pulido y transiciones fluidas que potencian la narrativa del creador sin generar distracciones innecesarias.</p>
+            </div>
+        </section>
+
+        <section class="highlights-section">
+            <h2>Puntos Clave y Logros</h2>
+            <div class="highlights-grid">
+                <div class="highlight-item">
+                    <h4>✨ Corrección de Color Cinemática</h4>
+                    <p>Paleta cromática optimizada para otorgar una identidad visual limpia, elegante y de estudio profesional.</p>
+                </div>
+                <div class="highlight-item">
+                    <h4>📈 Mayor Valor Percibido</h4>
+                    <p>Un empaquetado visual superior que incrementa la confianza y el impacto de la marca personal ante los espectadores.</p>
+                </div>
+                <div class="highlight-item">
+                    <h4>🎬 Ritmo Fluido</h4>
+                    <p>Transiciones y cortes milimétricamente calculados para mantener un flujo dinámico durante todo el video.</p>
+                </div>
             </div>
         </section>
     </div>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Cube Studio. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
+    <footer><div class="container"><p>&copy; 2026 Cube Studio. Todos los derechos reservados.</p></div></footer>
 </body>
 </html>
